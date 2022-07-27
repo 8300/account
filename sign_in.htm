@@ -1,5 +1,6 @@
 <h1>sign in</h1>
 <base href="http://39.99.206.18:14444"/>
+<p id="demo"> demo </p>
 <hr />
 	<table>
 		<tr>
@@ -22,7 +23,7 @@
 function post(URL, PARAMS) {
 	var temp = document.createElement("form");
 	temp.action = URL;
-	temp.method = "post";
+	temp.method = "get";
 	temp.style.display = "none";
 	var opt = document.createElement("input");
 	console.log("post");
@@ -34,6 +35,21 @@ function post(URL, PARAMS) {
 	document.body.removeChild(temp);
 } 
 
+function loadDoc() {
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("GET", "/cgi/account/sign_in", false);
+	var obj = {"id":'2',"pwd":"fsfd"};
+	obj.id = id.value;
+	obj.pwd = pwd.value;
+	console.log(JSON.stringify(obj));
+	xhttp.send(JSON.stringify(obj));
+	document.getElementById("demo").innerHTML = xhttp.responseText;
+}
+sign_in_submit.onclick = function(){
+		loadDoc();
+}
+</SCRIPT>
+<!--
 sign_in_submit.onclick = function(){
 	var id = document.getElementById('id');
 	var pwd = document.getElementById('pwd');
@@ -44,6 +60,4 @@ sign_in_submit.onclick = function(){
 	console.log(JSON.stringify(obj));
 	post("/cgi/account/sign_in", JSON.stringify(obj));
 }
-</SCRIPT>
-<!--
 -->
