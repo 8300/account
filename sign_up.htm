@@ -1,0 +1,83 @@
+
+<HTML>
+<HEAD>
+	<meta charset="utf-8" />
+	<title>Join 8300</title>
+</HEAD>
+<BODY>
+	<table>
+		<tr>
+			<td>id</td>
+			<td id="id"></td>
+		</tr>
+		<tr>
+			<td>nickname</td>
+			<td>
+				<input id="user" type = "text" name = "newinput" 
+				     autofocus/>
+			</td>
+		</tr>
+		<tr>
+			<td>email address</td>
+			<td>
+				<input id="user" type = "text" name = "newinput" 
+				       placeholder = "email@example.com" autofocus/>
+			</td>
+		</tr>
+		<tr>
+			<td>Password</td>
+			<td>
+				<input id="pwd" type = "text" name = "newinput1"/>
+			</td>
+		</tr>
+		<tr>
+			<td>Confirm Password</td>
+			<td>
+				<input id="pwd" type = "text" name = "newinput1"/><br>
+			</td>
+		</tr>
+	</table>
+	<input id="sign_up_submit" type = "submit" value = "submit" />
+</BODY>
+<script LANGUAGE="JAVASCRIPT">
+
+function post(URL, PARAMS) {
+	var temp = document.createElement("form");
+	temp.action = URL;
+	temp.method = "post";
+	temp.style.display = "none";
+	var opt = document.createElement("input");
+	console.log("1111");
+	opt.setAttribute("name", "{\"version\":1337, \"trash\":\"");
+	opt.setAttribute("value", "\", \"data\":" + PARAMS + "}");
+	temp.appendChild(opt);
+	document.body.appendChild(temp);
+	temp.submit();
+	document.body.removeChild(temp);
+} 
+
+sign_up_submit.onclick = function(){
+	var user = document.getElementById('user');
+	var pwd = document.getElementById('pwd');
+	var sign = document.getElementById('sign_in');
+	var obj = {"user":"2222","pwd":"fsfd"};
+	obj.user = user.value;
+	obj.pwd = pwd.value;
+	console.log("1133");
+	post("/cgi/sign_in",  JSON.stringify(obj));
+}
+{
+const xmlhttp = new XMLHttpRequest();
+xmlhttp.onload = function() {
+	console.log(this.responseText);
+	const myObj = JSON.parse(this.responseText);
+	document.getElementById("id").innerHTML = myObj.id;
+};
+xmlhttp.open("GET", "cgi/get_id");
+xmlhttp.send();
+}
+
+</SCRIPT>
+<!--
+-->
+</HTML>
