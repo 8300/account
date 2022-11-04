@@ -17,7 +17,7 @@
 			</td>
 		</tr>
 	</table>
-	<input id="sign_in_submit" type = "submit" value = "submit" />
+	<input id="submit" type = "submit" value = "submit" />
 <script LANGUAGE="JAVASCRIPT">
 
 function post(URL, PARAMS) {
@@ -47,7 +47,19 @@ function loadDoc() {
 }
 sign_in_submit.onclick = function(){
 		loadDoc();
+		otherWindow.postMessage(message, targetOrigin, [transfer]);
+
+var win = document.getElementById("iframe").contentWindow;
+
+document.getElementById("submit").onclick = function(e){
+	e.preventDefault();
+	win.postMessage(document.getElementById("message").value,"http://longen.example.com");
 }
+
+window.addEventListener("message",function(e){
+	e.preventDefault();
+	document.getElementById("test").innerHTML = "从" + e.origin + "那里传过来的消息:\n" + e.data;
+},false);
 </SCRIPT>
 <!--
 sign_in_submit.onclick = function(){
